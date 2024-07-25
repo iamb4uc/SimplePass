@@ -9,59 +9,30 @@ You need to have python3 to run this on Windows, Linux or MacOS
 ### Install Python Requirements
 ```
 sudo apt install python3-pip
-pip install -r requirements.txt
+pip install -r requirements
 ```
 
 ### MariaDB
-#### Install MariaDB on linux with apt
 ```
-sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
-sudo add-apt-repository 'deb http://ftp.osuosl.org/pub/mariadb/repo/5.5/ubuntuprecise main'
-sudo apt-get update
-sudo apt-get install mariadb-server
+sudo apt update
+sudo apt install mariadb-server
 ```
-#### Create user 'pm' and grant permissions
+#### Create user 'sp' and grant permissions
 **Login to mysql as root**
-
 ```
 sudo mysql -u root
 ```
 **Create User**
 ```
-CREATE USER 'pm'@localhost IDENTIFIED BY 'password';
+CREATE USER 'sp'@localhost IDENTIFIED BY 'password';
 ```
 **Grant privileges**
 ```
-GRANT ALL PRIVILEGES ON *.* TO 'pm'@localhost IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'sp'@localhost IDENTIFIED BY 'password';
 ```
 
 ### Pyperclip
 [Pyperclip](https://pypi.org/project/pyperclip/) is a python module used to copy data to the clipboard. If you get a "not implemented error", follow this simple fix: https://pyperclip.readthedocs.io/en/latest/index.html#not-implemented-error
-
-## Windows
-### Install Python Requirements
-```pip install -r requirements.txt```
-
-### MariaDB
-#### Install
-Follow [these instructions](https://www.mariadbtutorial.com/getting-started/install-mariadb/) to install MariaDB on Windows
-#### Create user and grant privileges
-- Navigate to MariaDB bin directory
-```
-C:\Program Files\MariaDB\bin
-```
-- Login as root with the password you chose while installation
-```
-mysql.exe -u root -p
-```
-- Create user
-```
-CREATE USER 'pm'@localhost IDENTIFIED BY 'password';
-```
-- Grant privileges
-```
-GRANT ALL PRIVILEGES ON *.* TO 'pm'@localhost IDENTIFIED BY 'password';
-```
 
 
 ## Run
@@ -86,8 +57,8 @@ The above command will first delete the existing configuration and create a fres
 
 ### Usage
 ```
-python pm.py -h
-usage: pm.py [-h] [-s NAME] [-u URL] [-e EMAIL] [-l LOGIN] [--length LENGTH] [-c] option
+./simplePass.py -h
+usage: simplePass.py [-h] [-s NAME] [-u URL] [-e EMAIL] [-l LOGIN] [--length LENGTH] [-c] option
 
 Description
 
@@ -109,27 +80,27 @@ optional arguments:
 
 ### Add entry
 ```
-python pm.py add -s mysite -u mysite.com -e hello@email.com -l myusername
+./simplePass.py add -s mysite -u mysite.com -e hello@email.com -l myusername
 ```
 ### Retrieve entry
 ```
-python pm.py extract
+./simplePass.py extract
 ```
 The above command retrieves all the entries
 ```
-python pm.py e -s mysite
+./simplePass.py e -s mysite
 ```
 The above command retrieves all the entries whose site name is "mysite"
 ```
-python pm.py e -s mysite -l myusername
+./simplePass.py e -s mysite -l myusername
 ```
 The above command retrieves the entry whose site name is "mysite" and username is "myusername"
 ```
-python pm.py e -s mysite -l myusername --copy
+./simplePass.py e -s mysite -l myusername --copy
 ```
 The above command copies the password of the site "mysite" and username "myusername" into the clipboard
 ### Generate Password
 ```
-python pm.py g --length 15
+./simplePass.py g --length 15
 ```
 The above command generates a password of length 15 and copies to clipboard
